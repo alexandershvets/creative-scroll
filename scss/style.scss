@@ -17,7 +17,7 @@
 // ШРИФТ ПО УМОЛЧАНИЮ
 $fontFamily: raleway-c;
 $fontWaight: 400;
-$fontSize: rem(18); // где 18(px) - размер шрифта по умолчанию из макета
+$fontSize: rem(16); // где 18(px) - размер шрифта по умолчанию из макета
 
 // ОСНОВНЫЕ ЦВЕТА
 $mainColor: #f4efec; // Цвет шрифта по умолчанию
@@ -163,11 +163,14 @@ body {
   }
   // .gallery__left
   &__left {
-    .gallery__item {
-    }
+    margin-top: calc($gallery-gap * 1.75);
   }
   // .gallery__right
   &__right {
+    .gallery__item {
+      margin-bottom: 0;
+      margin-top: calc($gallery-gap);
+    }
   }
   // .gallery__item
   &__item {
@@ -195,10 +198,17 @@ body {
 }
 
 .text-item {
+  position: relative;
+  color: $textColor;
   // .text-item__title
   &__title {
+    font-size: 2rem;
+    line-height: 2.4rem;
+    color: $mainColor;
+    margin-bottom: 1.2rem;
   }
   // .text-item__text
   &__text {
+    line-height: 1.75;
   }
 }

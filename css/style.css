@@ -37,7 +37,7 @@ body {
   line-height: 1;
   font-family: raleway-c;
   font-weight: 400;
-  font-size: 1.125rem;
+  font-size: 1rem;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -199,6 +199,13 @@ h6 {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.gallery__left {
+  margin-top: calc((1vw + 1vh) * 7.5 * 1.75);
+}
+.gallery__right .gallery__item {
+  margin-bottom: 0;
+  margin-top: calc((1vw + 1vh) * 7.5);
+}
 .gallery__item {
   margin-bottom: calc((1vw + 1vh) * 7.5);
   max-width: calc((1vw + 1vh) * 20);
@@ -221,4 +228,18 @@ h6 {
   -o-transition: transform 1.5s ease 0s;
   transition: transform 1.5s ease 0s;
   transition: transform 1.5s ease 0s, -webkit-transform 1.5s ease 0s;
+}
+
+.text-item {
+  position: relative;
+  color: #cdc6c3;
+}
+.text-item__title {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #f4efec;
+  margin-bottom: 1.2rem;
+}
+.text-item__text {
+  line-height: 1.75;
 }
