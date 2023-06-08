@@ -1,0 +1,24 @@
+.header {
+  img {
+    position: absolute;
+    z-index: -1;
+    top: 8vh;
+    left: 37vw;
+    width: calc($index * 36);
+  }
+  &__container {
+  }
+  &__main {
+  }
+}
+
+.main-header {
+  height: 100vh;
+  &__title {
+    position: absolute;
+    bottom: 10vh;
+    width: min-content;
+    font-size: calc($index * 8);
+    line-height: 0.9;
+  }
+}

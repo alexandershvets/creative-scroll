@@ -1,0 +1,204 @@
+@use 'sass:math';
+
+// МИКСИНЫ
+@import 'base/mixins';
+
+// ШРИФТЫ
+// &display=swap - добавить при подключении через плагин
+// @import url('https://fonts.googleapis.com/css?family=Montserrat:regular,500,700,800,900&display=swap');
+
+// Подключить если есть локальные файлы шрифтов
+@import 'fonts/fonts';
+
+// Подключение иконочных шрифтов
+// Подключить если есть файл иконочного шрифта
+// @import 'fonts/icons';
+
+// ШРИФТ ПО УМОЛЧАНИЮ
+$fontFamily: raleway-c;
+$fontWaight: 400;
+$fontSize: rem(18); // где 18(px) - размер шрифта по умолчанию из макета
+
+// ОСНОВНЫЕ ЦВЕТА
+$mainColor: #f4efec; // Цвет шрифта по умолчанию
+$textColor: #cdc6c3;
+$mainDarkColor: #0e101a;
+
+$index: calc(1vw + 1vh);
+$gallery-gap: calc($index * 7.5);
+
+// НАСТРОЙКИ
+$minWidth: 320; // Минимальная ширина страницы
+$maxWidth: 3800; // Ширина полотна (макета)
+$maxWidthContainer: 3220; // Ширина ограничивающего контейнера (0 = нет ограничения)
+$containerPadding: 7vw; // Общий отступ у контейнера (30 = по 15px слева и справа, 0 = нет отступа)
+
+$containerWidth: $maxWidthContainer + $containerPadding; // Ширина срабатывания первого брейкпоинта
+
+// БРЕЙК-ПОИНТЫ
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// ТИП АДАПТИВА:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+//===================================================================
+// ОБНУЛЕНИЕ И ОБЩИЕ ПАРАМЕТРЫ
+@import 'base/null';
+
+body {
+  background: /* $mainDarkColor */ url('../img/bg.jpg') 0 0 /50px repeat;
+  // Скролл заблокирован
+  .lock & {
+    overflow: hidden;
+    touch-action: none;
+  }
+  // Сайт загружен
+  .loaded & {
+    // opacity: 1;
+  }
+}
+
+//===================================================================
+// ОБОЛОЧКА
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  // Прижимаем footer
+  > main {
+    flex: 1 1 auto;
+  }
+  // Фикс для слайдеров
+  > * {
+    min-width: 0;
+  }
+}
+
+//===================================================================
+// ОГРАНИЧИВАЮЩИЙ КОНТЕЙНЕР
+/*
+(i) Стили будут применяться ко
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+  // Отзывчивая
+  [class*='__container'] {
+    @if ($maxWidthContainer>0) {
+      max-width: rem($maxWidthContainer);
+      box-sizing: content-box;
+      margin: 0 auto;
+    }
+    @if ($containerPadding>0) {
+      // padding: 0 rem(math.div($containerPadding, 2));
+      padding: 0 $containerPadding;
+    }
+  }
+} @else {
+  // По брейк-поинтам
+  [class*='__container'] {
+    margin: 0 auto;
+    @if ($maxWidthContainer>0) {
+      max-width: rem($maxWidthContainer);
+      box-sizing: content-box;
+    } @else {
+      @if ($containerPadding>0) {
+        padding: 0 rem(math.div($containerPadding, 2));
+      }
+    }
+    @media (max-width: $pc) {
+      max-width: rem(970);
+    }
+    @media (max-width: $tablet) {
+      max-width: rem(750);
+    }
+    @media (max-width: $mobile) {
+      max-width: none;
+      @if ($containerPadding>0 and $maxWidthContainer>0) {
+        padding: 0 rem(math.div($containerPadding, 2));
+      }
+    }
+  }
+}
+
+//===================================================================
+// Подключение базовых стилей, шаблонов (заготовок) и вспомогательных классов
+// Для подключения/отключения конкретных стилей смотри base.scss
+@import 'base';
+
+// Подключение стилей общих элементов проекта
+@import 'common';
+
+// Подключение стилей отдельных блоков
+@import 'header';
+// @import 'footer';
+
+// Подключение стилей отдельных страниц
+// @import 'home';
+
+.portfolio {
+  // .portfolio__container
+  &__container {
+  }
+  // .portfolio__gallery
+  &__gallery {
+  }
+}
+
+.gallery {
+  display: flex;
+  padding: calc($index * 8) 0;
+  & > * {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  // .gallery__left
+  &__left {
+    .gallery__item {
+    }
+  }
+  // .gallery__right
+  &__right {
+  }
+  // .gallery__item
+  &__item {
+    margin-bottom: $gallery-gap;
+    max-width: calc($index * 20);
+    max-height: 180vh;
+    border-radius: 8px;
+    overflow: hidden;
+    @media (any-hover: hover) {
+      &:hover {
+        img {
+          transform: scale(1.02);
+        }
+      }
+    }
+    img {
+      max-width: 100%;
+      height: 100%;
+      transition: transform 1.5s ease 0s;
+    }
+  }
+}
+
+.work-item {
+}
+
+.text-item {
+  // .text-item__title
+  &__title {
+  }
+  // .text-item__text
+  &__text {
+  }
+}
