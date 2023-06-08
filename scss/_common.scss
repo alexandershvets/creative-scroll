@@ -7,3 +7,10 @@ h5,
 h6 {
   font-family: outfit-c, sans-serif;
 }
+
+.content,
+.content img,
+.main-header,
+.gallery > * {
+  will-change: transform;
+}
